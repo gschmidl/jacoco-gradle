@@ -77,6 +77,11 @@ test {
   }
   
   doLast {
+    if (!new File(jacocoConvention.coverageFileName).exists()) {
+      logger.info("Skipping Jacoco report for ${project.name}. The data file is missing. (Maybe no tests ran in this module?)")
+      logger.info("The data file was expected at ${jacocoConvention.coverageFileName}")
+      return
+    }
     ant.taskdef(name:'jacocoreport', classname: 'org.jacoco.ant.ReportTask', classpath: configurations.jacoco.asPath)
     ant.mkdir dir: "${jacocoConvention.reportPath}"
     
