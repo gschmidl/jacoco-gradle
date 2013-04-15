@@ -1,8 +1,8 @@
 import groovy.lang.Closure;
 
-apply plugin: 'java'
+apply plugin: 'scala'
 
-def jacocoVersion = '0.5.7.201204190339'
+def jacocoVersion = '0.6.1'
 def jacocoAgent = "org.jacoco.agent-${jacocoVersion}.jar"
 
 configurations { jacoco } 
@@ -95,7 +95,11 @@ test {
         }
         sourcefiles {
           sourceSets.main.java.srcDirs.each {
-            fileset(dir: it.absolutePath)
+            // when overriding source sets or syncing projects with empty src dirs from
+            // certain VCS systems, it can happen that the source directory doesn't exist
+            if (it.exists()) {
+              fileset(dir: it.absolutePath)
+            }
           }
         }
       }
