@@ -2,7 +2,7 @@ import groovy.lang.Closure;
 
 apply plugin: 'scala'
 
-def jacocoVersion = '0.6.1'
+def jacocoVersion = '0.6.3'
 def jacocoAgent = "org.jacoco.agent-${jacocoVersion}.jar"
 
 configurations { jacoco } 
